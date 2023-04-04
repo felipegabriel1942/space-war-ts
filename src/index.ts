@@ -1,11 +1,26 @@
-/**
- * This file is just a silly example to show everything working in the browser.
- * When you're ready to start on your site, clear the file. Happy hacking!
- **/
+import { Player } from './model/player.model';
 
-import confetti from 'canvas-confetti';
+const canvas = document.querySelector<HTMLCanvasElement>('canvas');
 
-confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
-  resize: true,
-  useWorker: true,
-})({ particleCount: 200, spread: 200 });
+if (canvas) {
+  canvas.width = 1024;
+  canvas.height = 576;
+}
+
+const ctx = canvas?.getContext('2d');
+
+const player = new Player();
+
+function runGame(): void {
+  requestAnimationFrame(runGame);
+
+  if (!canvas || !ctx) {
+    return;
+  }
+
+  ctx?.fillRect(0, 0, canvas?.width, canvas?.height);
+
+  player.update(ctx);
+}
+
+runGame();
