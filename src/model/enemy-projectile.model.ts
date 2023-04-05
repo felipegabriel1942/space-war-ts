@@ -3,21 +3,21 @@ import { Vector2D } from './vector-2d.model';
 
 import { ImageUtils } from './../utils/image.util';
 
-import laserBolt from '../assets/image/laserBolts.png';
+import laserBoltSrc from '../assets/image/laserBolts.png';
 
-export class Projectil extends GameObject {
+export class EnemyProjectile extends GameObject {
   public frames = 0;
   public time = 0;
-  public speed = 5;
+  public speed = 8;
   public cropWidth = 14;
   public cropHeight = 16;
 
   constructor(position: Vector2D) {
-    super( 
-      ImageUtils.createImage(laserBolt),
+    super(
+      ImageUtils.createImage(laserBoltSrc),
       40,
-      70,
-      new Vector2D(0, -7),
+      40,
+      new Vector2D(0, 7),
       position,
     );
   }
@@ -32,7 +32,7 @@ export class Projectil extends GameObject {
       this.frames++;
     }
 
-    if (this.frames >= 2) {
+    if (this.frames > 1) {
       this.frames = 0;
     }
 
@@ -43,7 +43,7 @@ export class Projectil extends GameObject {
     ctx.drawImage(
       this.image,
       this.cropWidth * this.frames,
-      this.cropHeight,
+      this.cropHeight * 0,
       this.cropWidth,
       this.cropHeight,
       this.position.x,

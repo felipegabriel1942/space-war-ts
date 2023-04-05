@@ -3,21 +3,21 @@ import { Vector2D } from './vector-2d.model';
 
 import { ImageUtils } from './../utils/image.util';
 
-import playerShip from '../assets/image/playerShip.png';
-
+import playerShipSrc from '../assets/image/playerShip.png';
 
 // TODO: Corrigir logicas de tamanho das imagens
 export class Player extends GameObject {
   public frames = 0;
   public time = 0;
-  public speed = 5;
+  public speed = 7;
   public cropWidth = 16;
   public cropColumn = 2;
   public cropHeight = 24;
+  public opacity = 1;
 
   constructor() {
     super(
-      ImageUtils.createImage(playerShip),
+      ImageUtils.createImage(playerShipSrc),
       16,
       24,
       new Vector2D(0, 0),
@@ -50,6 +50,10 @@ export class Player extends GameObject {
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
+    ctx.save();
+
+    ctx.globalAlpha = this.opacity;
+
     ctx.drawImage(
       this.image,
       this.cropWidth * this.cropColumn,
@@ -61,5 +65,7 @@ export class Player extends GameObject {
       this.width * 3,
       this.height * 3,
     );
+
+    ctx.restore();
   }
 }
